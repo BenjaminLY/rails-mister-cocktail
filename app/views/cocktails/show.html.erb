@@ -1,41 +1,35 @@
 <div class="container">
   <h1><%= @cocktail.name %></h1>
-  <p>
-    <%= @cocktail.address %>
-    <%= @cocktail.phone_number %>
-    <%= @cocktail.category %>
-  </p>
   <ul class="list-unstyled">
-    <% @cocktail_reviews.each do |review| %>
+    <% @doses.each do |dose| %>
       <li>
-        <%= review.content %> |
-        <% review.rating.times do %>
-          <i class="fa fa-star yellow"></i>
-        <% end %>
-        <% (5 - review.rating).times do %>
-          <i class="fa fa-star gray"></i>
-        <% end %>
+        <%= dose.description %>
+        <%= link_to 'Delete', dose_path(dose), method: :delete %>
       </li>
     <% end %>
   </ul>
   <%= link_to 'Back to cocktails', cocktails_path %>
-  <%= link_to 'Add a review', new_cocktail_review_path(@cocktail) %>
+  <%= link_to 'Add a dose', new_cocktail_dose_path(@cocktail) %>
 
-<!-- Button trigger modal -->
-  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-    Launch demo modal
-  </button>
-
+  <%= button_tag 'Add a dose', class: "btn btn-primary btn-lg",
+    data: { toggle: 'modal', target: "#newDose" } %>
   <!-- Modal -->
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal fade" id="newDose" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+          <h4 class="modal-title" id="myModalLabel">New dose for '<%= @cocktail.name %>'</h4>
         </div>
         <div class="modal-body">
-          ...
+          <%= simple_form_for [@cocktail, @dose] do |f| %>
+            <%= f.error_notification %>
+
+            <%= f.input :description %>
+            <%= f.input :ingredient_id, collection: @ingredients, prompt: "Choose an ingredient"%>
+
+            <%= f.button :submit %>
+          <% end %>
         </div>
       </div>
     </div>

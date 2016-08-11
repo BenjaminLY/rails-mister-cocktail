@@ -1,12 +1,12 @@
 class DosesController < ApplicationController
-  before_action :set_cocktail, only: [:create, :destroy]
+  before_action :set_cocktail, only: [:new, :create]
 
   def new
     @dose = Dose.new
+    @ingredients = Ingredient.all
   end
 
   def create
-    @ingredients = Ingredient.all
     @dose = @cocktail.doses.build(dose_params)
     if @dose.save
       redirect_to cocktail_path(@cocktail)
@@ -16,9 +16,10 @@ class DosesController < ApplicationController
   end
 
   def destroy
-    @dose = Dose.find(params[:dose_id])
-    @dose.delete
-    redirect_to cocktail_path(@cocktail)
+    dose = Dose.find(params[:id])
+    cocktail_id = dose.cocktail_id
+    dose.delete
+    redirect_to cocktail_path(cocktail_id)
   end
 
   private
@@ -28,6 +29,6 @@ class DosesController < ApplicationController
   end
 
   def dose_params
-    params.require(:doses).permit(:description, :ingredient)
+    params.require(:dose).permit(:description, :ingredient_id)
   end
 end
