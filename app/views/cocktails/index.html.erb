@@ -1,13 +1,26 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-md-8 col-md-offset-2">
-      <h1>List of cocktails</h1>
-      <%= link_to "Add a new cocktail", new_cocktail_path, {class: "btn btn-primary"} %>
-      <ol>
-        <% @cocktails.each do |cocktail| %>
-          <li><%= cocktail.name %> <%= link_to "See details", cocktail, class: "btn btn-primary"%></li>
+      <h1>Better cocktails on earth</h1>
+      <%= content_tag :div, class: 'card', style: "background-image: url('cocktail-0.jpg')" do %>
+        dbhddh
+      <% end %>
+      <% @cocktails.each_with_index do |cocktail, index| %>
+        <%= link_to cocktail, class: 'card-link' do %>
+          <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(<%= "\"cocktail-" + index.to_s + ".jpg\"" %>);">
+           <%= image_tag ("cocktail-" + index.to_s + ".jpg") %>
+            <div class="card-category"><%= cocktail.name %></div>
+            <div class="card-description">
+              <h2><%= cocktail.name %></h2>
+              <p>
+                <% cocktail.doses.each do |dose| %>
+                  <%= Ingredient.find(dose.ingredient_id).name %>
+                <% end %>
+              </p>
+            </div>
+          </div>
         <% end %>
-      </ol>
+      <% end %>
     </div>
   </div>
 </div>

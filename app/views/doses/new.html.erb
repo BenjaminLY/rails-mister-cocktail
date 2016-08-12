@@ -6,7 +6,7 @@
         <%= f.error_notification %>
 
         <%= f.input :description %>
-        <%= f.input :ingredient_id, collection: @ingredients, prompt: "Choose an ingredient"%>
+        <%= f.association :ingredient, prompt: "Choose an ingredient"%>
 
         <%= f.button :submit %>
       <% end %>

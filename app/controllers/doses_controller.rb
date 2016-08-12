@@ -3,7 +3,7 @@ class DosesController < ApplicationController
 
   def new
     @dose = Dose.new
-    @ingredients = Ingredient.all
+    # @ingredients = Ingredient.all
   end
 
   def create
@@ -11,7 +11,7 @@ class DosesController < ApplicationController
     if @dose.save
       redirect_to cocktail_path(@cocktail)
     else
-      render :new
+      render 'cocktails/show'
     end
   end
 
