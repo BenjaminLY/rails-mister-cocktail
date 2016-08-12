@@ -1,27 +1,19 @@
-<div class="container">
+<div class="container padded bg-grey-light">
   <div class="row">
-    <div class="col-xs-12 col-md-8 col-md-offset-2">
-      <h1>Better cocktails on earth</h1>
-      <%= content_tag :div, class: 'card', style: "background-image: url('cocktail-0.jpg')" do %>
-        dbhddh
-      <% end %>
-      <% @cocktails.each_with_index do |cocktail, index| %>
-        <%= link_to cocktail, class: 'card-link' do %>
-          <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(<%= "\"cocktail-" + index.to_s + ".jpg\"" %>);">
-           <%= image_tag ("cocktail-" + index.to_s + ".jpg") %>
-            <div class="card-category"><%= cocktail.name %></div>
-            <div class="card-description">
-              <h2><%= cocktail.name %></h2>
-              <p>
-                <% cocktail.doses.each do |dose| %>
-                  <%= Ingredient.find(dose.ingredient_id).name %>
-                <% end %>
-              </p>
-            </div>
+    <div class="col-xs-12">
+      <h1 class="text-center">Better cocktails on earth</h1>
+      <div class="row">
+        <% @cocktails.each do |cocktail| %>
+          <div class="col-xs-12 col-md-4">
+            <%= content_tag :div, class: 'card', style: "background-image: url(#{cl_image_path cocktail.photo.path})" do %>
+              <div class="card-title">
+                <%= cocktail.name %>
+              </div>
+              <%= link_to '', cocktail_path(cocktail), class: 'card-link' %>
+            <% end %>
           </div>
         <% end %>
-      <% end %>
+      </div>
     </div>
   </div>
 </div>
-

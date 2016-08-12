@@ -1,20 +1,23 @@
 .card {
-  height: 175px;
+  height: 250px;
   text-shadow: 0 1px 3px rgba(0,0,0,0.6);
   background-size: cover !important;
+  background-position: center;
   color: white;
   position: relative;
+  margin: 15px 0;
+  border-radius: 8px;
 }
 .card-user {
   position: absolute;
   right: 10px;
   top: 10px;
 }
-.card-category {
+.card-title {
   position: absolute;
-  top: 10px;
-  left: 10px;
-  font-size: 10px;
+  bottom: 10px;
+  left: 20px;
+  font-size: 20px;
   text-transform: uppercase;
 }
 .card-description {
@@ -38,5 +41,6 @@
   opacity: 0;
 }
 .card-link:hover{
-  opacity: 0.1;
+  opacity: 0.6;
+  border-radius: 8px;
 }

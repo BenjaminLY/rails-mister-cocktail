@@ -6,13 +6,9 @@
 
   <!-- Right Navigation -->
   <div class="navbar-wagon-right hidden-xs hidden-sm">
-    <%= link_to "#", class: "navbar-wagon-item navbar-wagon-link" do %>
-      <div class="badge-container">
-        <i class="fa fa-envelope-o"></i>
-        <div class="badge badge-blue">3</div>
-      </div>
+    <%= link_to new_ingredient_path do %>
+      <li class="fa fa-barcode" style="font-size: 40px;"></li>
     <% end %>
-
     <%= link_to t(".top_call_to_action", default: "New cocktail"), new_cocktail_path,
       class: "navbar-wagon-item navbar-wagon-button btn" %>
   </div>

@@ -1,37 +1,44 @@
 <div class="container">
-  <h1><%= @cocktail.name %></h1>
-  <ul class="list-unstyled">
-    <% @doses.each do |dose| %>
-      <li>
-        <%= dose.description %>
-        <%= link_to 'Delete', dose_path(dose), method: :delete %>
-      </li>
+    <h1><%= @cocktail.name %></h1>
+    <% if @cocktail.photo? %>
+      <%= cl_image_tag @cocktail.photo.path, width: 700, height: 400, crop: :fill %>
     <% end %>
-  </ul>
-  <%= link_to 'Back to cocktails', cocktails_path %>
-  <%= link_to 'Add a dose', new_cocktail_dose_path(@cocktail) %>
-
-  <%= button_tag 'Add a dose', class: "btn btn-primary btn-lg",
-    data: { toggle: 'modal', target: "#newDose" } %>
-  <!-- Modal -->
-  <div class="modal fade" id="newDose" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">New dose for '<%= @cocktail.name %>'</h4>
-        </div>
-        <div class="modal-body">
-          <%= simple_form_for [@cocktail, @dose] do |f| %>
-            <%= f.error_notification %>
-
-            <%= f.input :description %>
-            <%= f.association :ingredient, prompt: "Choose an ingredient"%>
-
-            <%= f.button :submit %>
+    <ul class="list-unstyled">
+      <% @doses.each do |dose| %>
+        <li>
+          <%= dose.description %>
+           of
+          <%= dose.ingredient.name %>
+          <%= link_to dose_path(dose), method: :delete do %>
+            <i class="fa fa-trash-o"></i>
           <% end %>
+        </li>
+      <% end %>
+    </ul>
+    <%= link_to 'BACK', cocktails_path, class: "btn btn-primary" %>
+    <%#= link_to 'Add a dose', new_cocktail_dose_path(@cocktail) %>
+
+    <%= button_tag 'Add a dose', class: "btn btn-primary",
+      data: { toggle: 'modal', target: "#newDose" } %>
+    <!-- Modal -->
+    <div class="modal fade" id="newDose" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">New dose for '<%= @cocktail.name %>'</h4>
+          </div>
+          <div class="modal-body">
+            <%= simple_form_for [@cocktail, @dose] do |f| %>
+              <%= f.error_notification %>
+
+              <%= f.input :description %>
+              <%= f.association :ingredient, prompt: "Choose an ingredient"%>
+
+              <%= f.button :submit %>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 </div>
